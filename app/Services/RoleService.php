@@ -17,4 +17,27 @@ class RoleService{
     {
         return $this->rolerepository->index();
     }
+
+    public function store($data)
+    {
+        return $this->rolerepository->store($data);
+    }
+
+    public function getRoleById($data)
+    {
+        return $this->rolerepository->getRoleById($data);
+    }
+
+    public function update($data ,$id)
+    {
+        $data = $data->validate([
+            'name' => 'required|string'
+        ]);
+        return $this->rolerepository->update($data , $id);
+    }
+
+    public function delete($id)
+    {
+        return $this->rolerepository->delete($id);
+    }
 }

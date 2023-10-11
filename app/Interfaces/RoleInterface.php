@@ -7,11 +7,11 @@ interface RoleInterface {
 
     public function create();
 
-    public function store($request);
+    public function store($data);
 
-    public function edit($id);
+    public function getRoleById($id);
 
-    public function update($id);
+    public function update($update , $id);
 
     public function delete($id);
 

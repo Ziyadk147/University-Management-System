@@ -7,29 +7,36 @@ use App\Interfaces\RoleInterface;
 use Spatie\Permission\Models\Role;
 
 class RoleRepository implements  RoleInterface{
+
+    protected $role;
+    public function __construct(Role $role)
+    {
+        $this->role = $role;
+    }
+
     public function index()
     {
         return Role::all();
     }
     public function create()
     {
-        // TODO: Implement create() method.
     }
 
-    public function store($request)
+    public function store($data)
     {
-        // TODO: Implement store() method.
+        return $this->role->create($data);
     }
-    public function edit($id)
+    public function getRoleById($id)
     {
-        // TODO: Implement edit() method.
+        return $this->role->find($id);
     }
-    public function update($id)
+    public function update($data, $id)
     {
-        // TODO: Implement update() method.
+        return $this->role->find($id)->update($data);
+
     }
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->role->find($id)->delete();
     }
 }
