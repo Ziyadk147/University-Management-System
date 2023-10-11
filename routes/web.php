@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::controller(\App\Http\Controllers\RoleController::class)->group(function(){
+    Route::get('/role/index' , 'index')->name('role.index');
+});
