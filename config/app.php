@@ -167,6 +167,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         \App\Providers\RoleServiceProvider::class,
         \App\Providers\RoleInterfaceRepositoryServiceProvider::class,
+        \App\Providers\PermissionServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,

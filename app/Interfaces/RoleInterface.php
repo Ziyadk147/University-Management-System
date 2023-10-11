@@ -5,8 +5,6 @@ namespace App\Interfaces;
 interface RoleInterface {
     public function index();
 
-    public function create();
-
     public function store($data);
 
     public function getRoleById($id);

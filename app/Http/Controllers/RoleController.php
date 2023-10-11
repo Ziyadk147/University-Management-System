@@ -39,6 +39,7 @@ class RoleController extends Controller
         $data = $request->validate([
             'name' => 'required|string'
         ]);
+
         $user = $this->roleService->store($data);
 
         return redirect(route('role.index'));

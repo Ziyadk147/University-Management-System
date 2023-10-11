@@ -29,3 +29,11 @@ Route::controller(\App\Http\Controllers\RoleController::class)->group(function()
     Route::post('/role/{id}/', 'update')->name('role.update');
     Route::get('/role/{id}/', 'destroy')->name('role.delete');
 });
+Route::controller(\App\Http\Controllers\PermissionController::class)->group(function(){
+    Route::get('/permission/index' , 'index')->name('permission.index');
+    Route::get('/permission/create', 'create')->name('permission.create');
+    Route::post('/permission/store', 'store')->name('permission.store');
+    Route::get('/permission/{id}/edit', 'edit')->name('permission.edit');
+    Route::post('/permission/{id}/', 'update')->name('permission.update');
+    Route::get('/permission/{id}/', 'destroy')->name('permission.delete');
+});

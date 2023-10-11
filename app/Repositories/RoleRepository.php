@@ -18,9 +18,6 @@ class RoleRepository implements  RoleInterface{
     {
         return Role::all();
     }
-    public function create()
-    {
-    }
 
     public function store($data)
     {
@@ -37,6 +34,6 @@ class RoleRepository implements  RoleInterface{
     }
     public function delete($id)
     {
-        return $this->role->find($id)->delete();
+        return $this->role->findOrFail($id)->delete();
     }
 }

@@ -3,6 +3,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\NamevalidationRequest;
 use App\Repositories\RoleRepository;
 
 class RoleService{
@@ -30,9 +31,6 @@ class RoleService{
 
     public function update($data ,$id)
     {
-        $data = $data->validate([
-            'name' => 'required|string'
-        ]);
         return $this->rolerepository->update($data , $id);
     }
 
