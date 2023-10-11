@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\RoleRepository;
 use App\Services\RoleService;
+use Illuminate\Support\ServiceProvider;
 use Spatie\Permission\Models\Role;
 
-class AppServiceProvider extends ServiceProvider
+class RoleServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      */
     public function register(): void
     {
@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      */
     public function boot(): void
     {
