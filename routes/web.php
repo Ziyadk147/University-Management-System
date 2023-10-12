@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,3 +37,5 @@ Route::controller(\App\Http\Controllers\PermissionController::class)->group(func
     Route::post('/permission/{id}/', 'update')->name('permission.update');
     Route::get('/permission/{id}/', 'destroy')->name('permission.delete');
 });
+
+Route::get('/logout' , [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
