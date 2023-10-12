@@ -19,7 +19,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = $this->permissionService->index();
+        $permissions = $this->permissionService->getAllPermissions();
         return view('pages.Roles and Permission.Permissions.permission-index' , compact('permissions'));
     }
 
@@ -72,6 +72,8 @@ class PermissionController extends Controller
     public function destroy(string $id)
     {
         $permission = $this->permissionService->delete($id);
-        return to_route('permission.index');
+        return response()->json('done');
     }
+
+
 }

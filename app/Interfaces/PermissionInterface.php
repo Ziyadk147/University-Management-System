@@ -4,7 +4,7 @@
 namespace  App\Interfaces;
 
 interface PermissionInterface{
-    public function index();
+    public function getAllPermissions();
     public function create();
     public function store($data);
     public function getPermissionById($id);

@@ -26,6 +26,7 @@
                             </thead>
                             <tbody>
                             @foreach($permissions as $item)
+
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
@@ -33,9 +34,8 @@
                                         <a href="{{route('permission.edit',$item->id)}}">
                                             <button class="btn btn-primary">Edit</button>
                                         </a>
-                                        <a href="{{route('permission.delete',$item->id)}}">
-                                            <button class="btn btn-danger">Delete</button>
-                                        </a>
+                                        <button class="btn btn-danger btn-md delete-button" data-id="{{$item->id}}">Delete</button>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -48,9 +48,8 @@
         </div>
     </div>
 
-
+        <script src="{{asset('assets/js/core/deletefunction.js')}}" type="text/javascript"></script>
     <script>
-        $(document).ready(function(){
             $(document).ready(function(){
                 $('#dataTable').DataTable({
                     "bPaginate": true,
@@ -61,6 +60,6 @@
                     //responsive:true
                 });
             });
-        })
+
     </script>
 @endsection

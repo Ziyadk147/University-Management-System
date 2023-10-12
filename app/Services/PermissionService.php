@@ -14,9 +14,9 @@ class PermissionService{
         $this->permissionRepository = $permissionRepository;
     }
 
-    public function index()
+    public function getAllPermissions()
     {
-        return $this->permissionRepository->index();
+        return $this->permissionRepository->getAllPermissions();
     }
 
     public function store( $data)

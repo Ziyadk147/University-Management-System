@@ -77,6 +77,6 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         $this->roleService->delete($id);
-        return to_route('role.index');
+        return response()->json('Role Deleted Successfully');
     }
 }
