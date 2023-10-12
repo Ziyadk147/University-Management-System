@@ -13,7 +13,7 @@ class PermissionRepository implements PermissionInterface{
         $this->permission = $permission;
     }
 
-    public function index()
+    public function getAllPermissions()
     {
         return $this->permission->all();
     }

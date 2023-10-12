@@ -23,8 +23,6 @@
                 </div>
             </div>
         </div>
-        <div class="w-100"></div>
-
     </div>
 
 @endsection

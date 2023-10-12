@@ -33,9 +33,7 @@
                                             <a href="{{route('role.edit',$item->id)}}">
                                                 <button class="btn btn-primary">Edit</button>
                                             </a>
-                                            <a href="{{route('role.delete',$item->id)}}">
-                                                <button class="btn btn-danger">Delete</button>
-                                            </a>
+                                            <button class="btn btn-danger delete-button" data-id="{{$item->id}}">Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -48,10 +46,11 @@
         </div>
     </div>
 
-
+    <script src="{{asset('assets/js/core/deletefunction.js')}}" type="text/javascript"></script>
     <script>
-        $(document).ready(function(){
+
             $(document).ready(function(){
+                console.log(window.location.pathname.split('/')[1])
                 $('#dataTable').DataTable({
                     "bPaginate": true,
                     "bInfo": false,
@@ -61,6 +60,5 @@
                     //responsive:true
                 });
             });
-        })
     </script>
 @endsection
