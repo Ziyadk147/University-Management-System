@@ -25,7 +25,6 @@ class PermissionRepository implements PermissionInterface{
     {
         return $this->permission->create($data);
     }
-
     public function getPermissionById($id)
     {
         return $this->permission->findOrFail($id);
@@ -38,12 +37,10 @@ class PermissionRepository implements PermissionInterface{
     {
         return $this->permission->findOrFail($id)->delete();
     }
-
     public function assignPermissionToRole($role , $permission)
     {
         $role->syncPermissions($permission);
     }
-
     public function getRolePermissions($role)
     {
         return $role->permissions->pluck('id');

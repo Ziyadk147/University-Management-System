@@ -78,7 +78,7 @@ class PermissionController extends Controller
         return response()->json('done');
     }
 
-    public function bindPage()
+    public function bindPermissionPage()
     {
         $permissions = $this->permissionService->getAllPermissions();
         $roles = $this->roleService->getAllRoles();

@@ -10,8 +10,6 @@ interface PermissionInterface{
     public function getPermissionById($id);
     public function update($data , $id);
     public function delete($id);
-
     public function assignPermissionToRole($role , $permission);
-
     public function getRolePermissions($role);
 }

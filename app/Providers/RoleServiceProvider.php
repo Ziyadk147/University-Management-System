@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Repositories\RoleRepository;
 use App\Services\RoleService;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +16,7 @@ class RoleServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(RoleRepository::class , function($app){
-            return new RoleRepository(new Role());
+            return new RoleRepository(new Role() , new User());
         });
         $this->app->bind(RoleService::class , function($app){
             return new RoleService($app->make(RoleRepository::class));
