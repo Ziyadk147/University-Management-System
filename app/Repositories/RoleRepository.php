@@ -14,7 +14,7 @@ class RoleRepository implements  RoleInterface{
         $this->role = $role;
     }
 
-    public function index()
+    public function getAllRoles()
     {
         return Role::all();
     }

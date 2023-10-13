@@ -1,17 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Requests\NamevalidationRequest;
 use App\Services\PermissionService;
+use App\Services\RoleService;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\MockObject\Stub\ReturnReference;
 
 class PermissionController extends Controller
 {
     private $permissionService;
-    public function __construct(PermissionService $permissionService)
+    private $roleService;
+
+    public function __construct(PermissionService $permissionService , RoleService $roleService)
     {
         $this->permissionService = $permissionService;
+        $this->roleService = $roleService;
     }
 
     /**
@@ -75,5 +78,31 @@ class PermissionController extends Controller
         return response()->json('done');
     }
 
+    public function bindPage()
+    {
+        $permissions = $this->permissionService->getAllPermissions();
+        $roles = $this->roleService->getAllRoles();
 
+        return view('pages.Roles and Permission.Permissions.permission-bind' , compact('permissions' ,'roles'));
+    }
+
+    public function bindPermissionToRole(Request $request)
+    {
+        $role = $this->roleService->getRoleById($request->role);
+        $permissions = array_values($request->selected_permission ?? []);
+
+        $this->permissionService->assignPermissionToRole($role , $permissions);
+        return redirect(route('permission.bind'));
+    }
+
+    public function getRolePermissions(Request $request)
+    {
+        $role = $this->roleService->getRoleById($request->id);
+        $permissions = $this->permissionService->getRolePermissions($role);
+
+        return response()->json([
+            'data' => $permissions,
+            'message' => 'Permissions Returned Successfully'
+        ]);
+    }
 }

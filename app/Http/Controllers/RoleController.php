@@ -19,7 +19,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = $this->roleService->index();
+        $roles = $this->roleService->getAllRoles();
         return view('pages.Roles and Permission.Roles.role-index' ,compact('roles'));
     }
 

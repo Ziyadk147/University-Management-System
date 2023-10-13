@@ -44,4 +44,14 @@ class PermissionService{
     {
         return $this->permissionRepository->delete($id);
     }
+
+    public function assignPermissionToRole($role , $permission_array)
+    {
+       return $this->permissionRepository->assignPermissionToRole($role , $permission_array);
+    }
+
+    public function getRolePermissions($role)
+    {
+        return $this->permissionRepository->getRolePermissions($role);
+    }
 }
