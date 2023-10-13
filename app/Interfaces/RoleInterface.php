@@ -3,7 +3,7 @@
 namespace App\Interfaces;
 
 interface RoleInterface {
-    public function index();
+    public function getAllRoles();
 
     public function store($data);
 

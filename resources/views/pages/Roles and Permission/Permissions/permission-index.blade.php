@@ -11,6 +11,7 @@
                         </div>
                         <div class="col text-right">
                             <a href="{{route('permission.create')}}"><button class="btn btn-primary btn-md">Create New Permission</button></a>
+                            <a href="{{route('permission.bind')}}"><button class="btn btn-primary btn-md">Bind Permission To Role</button></a>
                         </div>
                     </div>
                 </div>

@@ -14,9 +14,9 @@ class RoleService{
         $this->rolerepository = $roleRepository;
     }
 
-    public function index()
+    public function getAllRoles()
     {
-        return $this->rolerepository->index();
+        return $this->rolerepository->getAllRoles();
     }
 
     public function store($data)
