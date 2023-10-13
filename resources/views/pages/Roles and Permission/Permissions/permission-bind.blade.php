@@ -36,7 +36,7 @@
                                         <tr>
                                             <td>{{$permission->id}}</td>
                                             <td>{{$permission->name}}</td>
-                                            <td><input type="checkbox" id="permission-no-{{$permission->id}}" class="select-checkbox" name="selected_permission[]" value="{{$permission->id}}"></td>
+                                            <td><input type="checkbox" id="permission-no-{{$permission->id}}" class="select-checkbox permission" name="selected_permission[]" value="{{$permission->id}}"></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -51,6 +51,7 @@
     <script>
         $(document).ready(function(){
            $('#roledropdown').on('change' , function(){
+               $('.permission').prop('checked' , false)
                $.ajax({
                    url:'{{route('permission.getRolePermission')}}',
                    type:'POST',
@@ -61,7 +62,6 @@
                    success:function(success){
                        $.each(success.data , function(key ,value){
                            $('#permission-no-'+value).prop('checked' ,true) //makes the checkbox checked if the role has that particular permission
-
                        })
                    }
                })
