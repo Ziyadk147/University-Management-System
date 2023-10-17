@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <form action="{{route('role.update' , $role->id)}}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="mb-3">
                             <label class="form-label">Role Name</label>
                             <input type="text" class="form-control" name="name" value="{{$role->name}}">

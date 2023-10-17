@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\PermissionInterface;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class PermissionRepository implements PermissionInterface{
@@ -36,7 +37,11 @@ class PermissionRepository implements PermissionInterface{
     }
     public function delete($id)
     {
-        return $this->permission->findOrFail($id)->delete();
+        $deleted_permission =  $this->permission->findOrFail($id);
+        $deleted_permission->update([
+            'deleted_by' => Auth::id()
+        ]);
+        return $deleted_permission->delete();
     }
 
     public function assignPermissionToRole($role , $permission)

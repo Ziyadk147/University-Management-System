@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\RoleInterface;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class RoleRepository implements  RoleInterface{
@@ -34,6 +35,10 @@ class RoleRepository implements  RoleInterface{
     }
     public function delete($id)
     {
-        return $this->role->findOrFail($id)->delete();
+        $deleted_role = $this->role->findOrFail($id);
+        $deleted_role->update([
+            'updated_by' => Auth::id()
+        ]);
+        return $deleted_role->delete();
     }
 }
