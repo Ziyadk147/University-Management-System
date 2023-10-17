@@ -11,6 +11,7 @@
                         </div>
                         <div class="col text-right">
                             <a href="{{route('role.create')}}"><button class="btn btn-primary btn-md">Create New Role</button></a>
+                            <a href="{{route('role.bind')}}"><button class="btn btn-primary btn-md">Assign Role To User</button></a>
                         </div>
                     </div>
                 </div>

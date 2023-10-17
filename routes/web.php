@@ -25,10 +25,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/logout' , [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
 Route::controller(PermissionController::class)->prefix('/permission')->group(function(){
-    Route::get('/bind' , 'bindPage')->name('permission.bind');
+    Route::get('/bind' , 'bindPermissionPage')->name('permission.bind');
     Route::post('/bindPermission' , 'bindPermissionToRole')->name('permission.bindPermission');
     Route::post('/getRolePermission' , 'getRolePermissions')->name('permission.getRolePermission');
-
+});
+Route::controller(RoleController::class)->prefix('/role')->group(function(){
+   Route::get('/bind','bindUserPage')->name('role.bind');
 });
 
 Route::resource('/role',\App\Http\Controllers\RoleController::class);

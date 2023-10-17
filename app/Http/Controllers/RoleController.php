@@ -79,4 +79,12 @@ class RoleController extends Controller
         $this->roleService->delete($id);
         return response()->json('Role Deleted Successfully');
     }
+
+    public function bindUserPage()
+    {
+        $roles = $this->roleService->getAllRoles();
+        $users = $this->roleService->getUsers();
+
+        return view('pages.Roles and Permission.Roles.role-bind',compact('roles' , 'users'));
+    }
 }

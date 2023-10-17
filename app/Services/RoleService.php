@@ -41,4 +41,9 @@ class RoleService{
     {
         return $this->rolerepository->delete($id);
     }
+
+    public function getUsers()
+    {
+        return $this->rolerepository->getUsers();
+    }
 }

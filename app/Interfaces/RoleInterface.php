@@ -13,4 +13,5 @@ interface RoleInterface {
 
     public function delete($id);
 
+    public function getUsers();
 }
