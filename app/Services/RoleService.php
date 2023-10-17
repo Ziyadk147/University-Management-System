@@ -31,6 +31,9 @@ class RoleService{
 
     public function update($data ,$id)
     {
+        $data = $data->validate([
+            'name' => 'Required|string'
+        ]);
         return $this->rolerepository->update($data , $id);
     }
 
