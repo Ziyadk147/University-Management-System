@@ -7,10 +7,10 @@
                 <div class="card-header py-3">
                     <div class="row">
                         <div class="col">
-                            <h2 class="m-0 font-weight-bold text-primary">Roles</h2>
+                            <h2 class="m-0 font-weight-bold text-primary">Users</h2>
                         </div>
                         <div class="col text-right">
-{{--                            <a href="{{route('user.create')}}"><button class="btn btn-primary btn-md">Create New Role</button></a>--}}
+                            <a href="{{route('user.create')}}"><button class="btn btn-primary btn-md">Create New User</button></a>
                         </div>
                     </div>
                 </div>
@@ -20,23 +20,23 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Role</th>
+                                <th>Users</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-{{--                            @foreach($roles as $item)--}}
-{{--                                <tr>--}}
-{{--                                    <td>{{$item->id}}</td>--}}
-{{--                                    <td>{{$item->name}}</td>--}}
-{{--                                    <td>--}}
-{{--                                        <a href="{{route('role.edit',$item->id)}}">--}}
-{{--                                            <button class="btn btn-primary">Edit</button>--}}
-{{--                                        </a>--}}
-{{--                                        <button class="btn btn-danger delete-button" data-id="{{$item->id}}">Delete</button>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
+                            @foreach($users as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>
+                                        <a href="{{route('user.edit',$item->id)}}">
+                                            <button class="btn btn-primary">Edit</button>
+                                        </a>
+                                        <button class="btn btn-danger delete-button" data-id="{{$item->id}}">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

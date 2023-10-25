@@ -7,6 +7,7 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Permission\Models\Role;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class UserServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UserRepository::class , function($app){
-            return new UserRepository(new User());
+            return new UserRepository(new User() , new Role());
         });
         $this->app->bind(UserService::class , function($app){
             return new UserService($this->app->make(UserRepository::class));

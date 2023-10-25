@@ -33,5 +33,7 @@ Route::controller(RoleController::class)->prefix('/role')->group(function(){
    Route::get('/bind','bindUserPage')->name('role.bind');
 });
 
+
 Route::resource('/role',\App\Http\Controllers\RoleController::class);
 Route::resource('/permission',\App\Http\Controllers\PermissionController::class);
+Route::resource('/user' , \App\Http\Controllers\UserController::class);

@@ -31,16 +31,16 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Roles and Permissions</span>
+            <span>User Management</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('role.index')}}">Roles</a>
                 <a class="collapse-item" href="{{route('permission.index')}}">Permissions</a>
+                <a class="collapse-item" href="{{route('user.index')}}">user</a>
             </div>
         </div>
     </li>
-
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -90,11 +90,7 @@
     </li>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
+
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
