@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Services\RoleService;
 
 class RoleController extends Controller
 {
     protected $roleService;
-    public function __construct(RoleService $roleService)
+    protected $userService;
+    public function __construct(RoleService $roleService , UserService $userService)
     {
         $this->roleService = $roleService;
+        $this->userService = $userService;
 
     }
 
@@ -19,6 +23,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+
         $roles = $this->roleService->getAllRoles();
         return view('pages.Roles and Permission.Roles.role-index' ,compact('roles'));
     }
@@ -86,5 +91,13 @@ class RoleController extends Controller
         $users = $this->roleService->getUsers();
 
         return view('pages.Roles and Permission.Roles.role-bind',compact('roles' , 'users'));
+    }
+
+    public function bindRoleToUser(Request $request)
+    {
+        $role = $this->roleService->getRoleById($request->role);
+        $user = $this->userService->getUserById($request->user);
+        $this->roleService->bindRoleToUser($role , $user);
+        return redirect(route('role.index'));
     }
 }

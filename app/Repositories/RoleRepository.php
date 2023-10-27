@@ -48,4 +48,9 @@ class RoleRepository implements  RoleInterface{
     {
         return $this->user->all();
     }
+
+    public function bindRoleToUser($role ,$user)
+    {
+        return $user->syncRoles($role);
+    }
 }

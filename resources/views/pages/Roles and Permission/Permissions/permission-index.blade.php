@@ -10,8 +10,12 @@
                             <h2 class="m-0 font-weight-bold text-primary">Permissions</h2>
                         </div>
                         <div class="col text-right">
-                            <a href="{{route('permission.create')}}"><button class="btn btn-primary btn-md">Create New Permission</button></a>
-                            <a href="{{route('permission.bind')}}"><button class="btn btn-primary btn-md">Bind Permission To Role</button></a>
+{{--                            @can('create-permissions')--}}
+                                <a href="{{route('permission.create')}}"><button class="btn btn-primary btn-md">Create New Permission</button></a>
+{{--                            @endcan--}}
+{{--                            @can('bind-permissions')--}}
+                                <a href="{{route('permission.bind')}}"><button class="btn btn-primary btn-md">Bind Permission To Role</button></a>
+{{--                            @endcan--}}
                         </div>
                     </div>
                 </div>
@@ -32,11 +36,14 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>
-                                        <a href="{{route('permission.edit',$item->id)}}">
-                                            <button class="btn btn-primary">Edit</button>
-                                        </a>
-                                        <button class="btn btn-danger btn-md delete-button" data-id="{{$item->id}}">Delete</button>
-
+                                        @can('edit-permissions')
+                                            <a href="{{route('permission.edit',$item->id)}}">
+                                                <button class="btn btn-primary">Edit</button>
+                                            </a>
+                                        @endcan
+                                        @can('delete-permissions')
+                                            <button class="btn btn-danger btn-md delete-button" data-id="{{$item->id}}">Delete</button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

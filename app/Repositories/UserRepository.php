@@ -34,7 +34,7 @@ class UserRepository implements UserInterface{
         ];
 
         $user = $this->user->create($payload);
-        $user->assignRole($data->role);
+        $user->assignRole($payload['role']);
 
         return $user;
     }

@@ -46,4 +46,9 @@ class RoleService{
     {
         return $this->rolerepository->getUsers();
     }
+
+    public function bindRoleToUser($role , $user)
+    {
+        return $this->rolerepository->bindRoleToUser($role , $user);
+    }
 }

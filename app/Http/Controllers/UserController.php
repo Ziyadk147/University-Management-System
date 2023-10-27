@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreValidationRequest;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -28,8 +29,9 @@ class UserController extends Controller
         return view('pages.Users.create' , compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(StoreValidationRequest $request)
     {
+        $request = $request->validated();
         $this->userService->store($request);
         return redirect(route('user.index'));
     }
