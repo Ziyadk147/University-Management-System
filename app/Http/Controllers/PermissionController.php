@@ -92,7 +92,8 @@ class PermissionController extends Controller
         $permissions = array_values($request->selected_permission ?? []);
 
         $this->permissionService->assignPermissionToRole($role , $permissions);
-        return redirect(route('permission.bind'));
+//        return redirect(route('permission.bind'));
+        return back();
     }
 
     public function getRolePermissions(Request $request)

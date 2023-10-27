@@ -10,8 +10,12 @@
                             <h2 class="m-0 font-weight-bold text-primary">Roles</h2>
                         </div>
                         <div class="col text-right">
-                            <a href="{{route('role.create')}}"><button class="btn btn-primary btn-md">Create New Role</button></a>
-                            <a href="{{route('role.bind')}}"><button class="btn btn-primary btn-md">Assign Role To User</button></a>
+                            @can('create-roles')
+                                <a href="{{route('role.create')}}"><button class="btn btn-primary btn-md">Create New Role</button></a>
+                            @endcan
+                            @can('assign-roles')
+                                <a href="{{route('role.bind')}}"><button class="btn btn-primary btn-md">Assign Role To User</button></a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -31,10 +35,14 @@
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->name}}</td>
                                         <td>
+                                        @can('edit-roles')
                                             <a href="{{route('role.edit',$item->id)}}">
                                                 <button class="btn btn-primary">Edit</button>
                                             </a>
+                                        @endcan
+                                        @can('delete-roles')
                                             <button class="btn btn-danger delete-button" data-id="{{$item->id}}">Delete</button>
+                                        @endcan
                                         </td>
                                     </tr>
                                 @endforeach

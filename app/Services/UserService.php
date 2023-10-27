@@ -25,12 +25,7 @@ class UserService{
 
     public function store($data)
     {
-        $data->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'role' => 'required',
-            'password' => 'required'
-        ]);
+
         return $this->userRepository->store($data);
     }
 

@@ -10,7 +10,9 @@
                             <h2 class="m-0 font-weight-bold text-primary">Users</h2>
                         </div>
                         <div class="col text-right">
-                            <a href="{{route('user.create')}}"><button class="btn btn-primary btn-md">Create New User</button></a>
+                            @can('create-users')
+                                <a href="{{route('user.create')}}"><button class="btn btn-primary btn-md">Create New User</button></a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -30,10 +32,14 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>
-                                        <a href="{{route('user.edit',$item->id)}}">
-                                            <button class="btn btn-primary">Edit</button>
-                                        </a>
-                                        <button class="btn btn-danger delete-button" data-id="{{$item->id}}">Delete</button>
+                                        @can('edit-users')
+                                            <a href="{{route('user.edit',$item->id)}}">
+                                                <button class="btn btn-primary">Edit</button>
+                                            </a>
+                                        @endcan
+                                        @can('delete-users')
+                                            <button class="btn btn-danger delete-button" data-id="{{$item->id}}">Delete</button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
