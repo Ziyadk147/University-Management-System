@@ -7,6 +7,7 @@ use \App\Http\Controllers\PermissionController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ClassesController;
 use \App\Http\Controllers\CoursesController;
+use \App\Http\Controllers\ResourceController;
 
 
 /*
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['role:admin']] , function (){
     Route::resource('/role',RoleController::class);
     Route::resource('/permission',PermissionController::class);
     Route::resource('/user' , UserController::class);
+    Route::resource('/resource',ResourceController::class);
 });
 
 
