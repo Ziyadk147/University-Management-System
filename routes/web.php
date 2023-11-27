@@ -6,6 +6,9 @@ use \App\Http\Controllers\RoleController;
 use \App\Http\Controllers\PermissionController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ClassesController;
+use \App\Http\Controllers\CoursesController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +39,7 @@ Route::group(['middleware' => ['role:admin']] , function (){
         Route::get('/bind','bindUserPage')->name('role.bind');
         Route::post('/bindRoleToUser','bindRoleToUser')->name('role.bindRoleToUser');
     });
+    Route::resource('/courses' ,CoursesController::class);
     Route::resource('/classes',ClassesController::class);
     Route::resource('/role',RoleController::class);
     Route::resource('/permission',PermissionController::class);

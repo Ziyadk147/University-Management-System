@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreValidationRequest;
+use App\Http\Requests\Courses\StoreValidationRequest;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
