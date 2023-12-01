@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Resource;
 use App\Services\ResourcesService;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
+use Illuminate\Support\Facades\Storage;
 
 class ResourceController extends Controller
 {
@@ -30,7 +32,8 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        //
+        $courses = $this->resourceService->getAllCourses();
+        return view('pages.Resources.create' , compact('courses'));
     }
 
     /**
@@ -38,24 +41,28 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->resourceService->createResource($request);
+        return redirect(route('resource.index'));
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
-        $resources = $this->resourceService->getResources($id);
+        $resources = $this->resourceService->getSubjectResources($id);
         return view('pages.Resources.show',compact('resources'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Resource $resource)
+    public function edit($id)
     {
-        //
+        $payload['resource'] =  $this->resourceService->findResourceById($id);
+        $payload['courses'] =  $this->resourceService->getAllCourses();
+        return view('pages.Resources.edit' , $payload);
     }
 
     /**
@@ -69,8 +76,14 @@ class ResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Resource $resource)
+    public function destroy($id)
     {
-        //
+        return $this->resourceService->destroy($id);
+    }
+
+    public function downloadResource($filename)
+    {
+        $path = Storage::disk('public')->path('files/'.$filename);
+        return response()->file($path);
     }
 }
