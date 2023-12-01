@@ -34,17 +34,16 @@
                         <div class="col">
                             <h2 class="m-0 font-weight-bold text-primary">Resources</h2>
                         </div>
-{{--                        <div class="col text-right">--}}
-{{--                            @can('create-users')--}}
-{{--                                <a href="{{route('user.create')}}"><button class="btn btn-primary btn-md">Create New User</button></a>--}}
+                        <div class="col text-right">
+{{--                            @can('create-resource')--}}
+                                <a href="{{route('resource.create')}}"><button class="btn btn-primary btn-md">Create New Resource</button></a>
 {{--                            @endcan--}}
-{{--                        </div>--}}
+                        </div>
                     </div>
                 </div>
 
                 <div class="card-body">
                     <div class="row">
-
                         @foreach($courses as $course)
                             <div class="col-md-5 p-2">
                                 <div class="link-card border" >
@@ -56,12 +55,8 @@
                                     </a>
                                 </div>
                             </div>
-                            @endforeach
-
-
+                        @endforeach
                     </div>
-
-
                 </div>
             </div>
 

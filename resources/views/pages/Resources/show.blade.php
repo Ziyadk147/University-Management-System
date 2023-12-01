@@ -36,12 +36,12 @@
                                     <td>{{$resource->tag}}</td>
                                     <td>
 {{--                                        @can('download-resource')--}}
-                                            <a href="{{route('user.edit',$resource->id)}}">
+                                            <a href="{{route('resource.download',['filename' => $resource->path])}}" target="_blank">
                                                 <button class="btn btn-primary">Download</button>
                                             </a>
 {{--                                        @endcan--}}
 {{--                                        @can('edit-users')--}}
-                                            <a href="{{route('user.edit',$resource->id)}}">
+                                            <a href="{{route('resource.edit',$resource->id)}}">
                                                 <button class="btn btn-primary">Edit</button>
                                             </a>
 {{--                                        @endcan--}}

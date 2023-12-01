@@ -20,7 +20,7 @@ class ResourceServiceProvider extends ServiceProvider
             return new ResourcesRepository(new Resource() , new Course() , new CourseRepository());
         });
         $this->app->bind(ResourcesService::class ,function($app){
-            return new ResourcesService($this->app->make(ResourcesRepository::class));
+            return new ResourcesService($this->app->make(CourseRepository::class),$this->app->make(ResourcesRepository::class));
         });
         $this->app->register(ResourcesInterfaceServiceProvider::class);
     }

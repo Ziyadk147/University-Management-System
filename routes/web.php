@@ -40,6 +40,9 @@ Route::group(['middleware' => ['role:admin']] , function (){
         Route::get('/bind','bindUserPage')->name('role.bind');
         Route::post('/bindRoleToUser','bindRoleToUser')->name('role.bindRoleToUser');
     });
+    Route::controller(ResourceController::class)->prefix('/resource')->group(function(){
+        Route::get('/download/{filename}' , 'downloadResource')->name('resource.download');
+    });
     Route::resource('/courses' ,CoursesController::class);
     Route::resource('/classes',ClassesController::class);
     Route::resource('/role',RoleController::class);
