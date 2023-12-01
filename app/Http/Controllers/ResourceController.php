@@ -46,9 +46,8 @@ class ResourceController extends Controller
      */
     public function show($id)
     {
-        $data = $this->resourceService->getResources($id);
-//        dd($data);
-        return view('pages.Resources.resources' , compact('data'));
+        $resources = $this->resourceService->getResources($id);
+        return view('pages.Resources.show',compact('resources'));
     }
 
     /**

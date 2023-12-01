@@ -32,7 +32,7 @@
                 <div class="card-header py-3">
                     <div class="row">
                         <div class="col">
-                            <h2 class="m-0 font-weight-bold text-primary">Users</h2>
+                            <h2 class="m-0 font-weight-bold text-primary">Resources</h2>
                         </div>
 {{--                        <div class="col text-right">--}}
 {{--                            @can('create-users')--}}
@@ -46,12 +46,12 @@
                     <div class="row">
 
                         @foreach($courses as $course)
-                            <div class="col">
+                            <div class="col-md-5 p-2">
                                 <div class="link-card border" >
                                     <a href="{{route('resource.show' , $course->id)}}">
-                                        <div class="card-body h-100">
-                                            <h5 class="card-title">{{$course->name}}</h5>
-                                            <p class="card-text">{{$course->name}} material</p>
+                                        <div class="card-body text-nowrap h-100">
+                                            <h5 class="card-title ">{{$course->name}}</h5>
+                                            <p class="card-text ">{{$course->name}} material</p>
                                         </div>
                                     </a>
                                 </div>
