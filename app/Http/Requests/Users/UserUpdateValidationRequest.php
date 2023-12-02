@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Classes;
+namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClassStoreValidationRequest extends FormRequest
+class UserUpdateValidationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,15 +22,16 @@ class ClassStoreValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:classes,name,NULL,id,deleted_at,NULL',
-            'capacity' => 'required|integer'
+            'email' => 'required|unique:users,email',
+            'name' => 'required',
+            'role' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.unique' => 'Class Already Exists'
+            'email.unique' => 'This User already Exists'
         ];
     }
 }

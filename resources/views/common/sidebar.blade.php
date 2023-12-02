@@ -47,6 +47,7 @@
             </div>
         </div>
     </li>
+    @canany(['view-classes' , 'view-courses'])
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClasses"
            aria-expanded="true" aria-controls="collapseTwo">
@@ -55,32 +56,26 @@
         </a>
         <div id="collapseClasses" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                {{--                @can('view-classes')--}}
+                @can('view-classes')
                 <a class="collapse-item" href="{{route('classes.index')}}">Classes</a>
-                {{--                @endcan--}}
-                {{--                @can('view-courses')--}}
+                @endcan
+                @can('view-courses')
                 <a class="collapse-item" href="{{route('courses.index')}}">Courses</a>
-                {{--                @endcan--}}
+                @endcan
             </div>
         </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResource"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+    @endcanany
+    <li class="nav-item active">
+        @can('view-resources')
+        <a class="nav-link" href="{{route('resource.index')}}">
+            <i class="fas fa-book"></i>
             <span>Resources</span>
         </a>
-        <div id="collapseResource" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                {{--                @can('view-classes')--}}
-                <a class="collapse-item" href="{{route('resource.index')}}">CHECK</a>
-                {{--                @endcan--}}
-                {{--                @can('view-courses')--}}
-{{--                <a class="collapse-item" href="{{route('courses.index')}}">Courses</a>--}}
-                {{--                @endcan--}}
-            </div>
-        </div>
+        @endcan
+
     </li>
+
     <!-- Nav Item - Utilities Collapse Menu -->
     {{--    <li class="nav-item">--}}
     {{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"--}}

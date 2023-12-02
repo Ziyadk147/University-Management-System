@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Classes;
+namespace App\Http\Requests\Resource;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClassStoreValidationRequest extends FormRequest
+class ResourceCreateValidationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,17 @@ class ClassStoreValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:classes,name,NULL,id,deleted_at,NULL',
-            'capacity' => 'required|integer'
+            'name' => 'required|string|unique:resources,name,NULL,id,deleted_at,NULL',
+            'path' => 'required|string',
+            'course' => 'required|string',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.unique' => 'Class Already Exists'
+            'name.unique' => 'Name already Exists',
+            'path.required' => 'File Upload is Required'
         ];
     }
 }

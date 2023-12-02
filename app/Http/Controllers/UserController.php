@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Courses\StoreValidationRequest;
+use App\Http\Requests\Users\UserStorevalidationRequest;
+use App\Http\Requests\Users\UserUpdateValidationRequest;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -29,9 +31,9 @@ class UserController extends Controller
         return view('pages.Users.create' , compact('roles'));
     }
 
-    public function store(StoreValidationRequest $request)
+    public function store(UserStorevalidationRequest $request)
     {
-        $request = $request->validated();
+
         $this->userService->store($request);
         return redirect(route('user.index'));
     }
@@ -45,7 +47,7 @@ class UserController extends Controller
         return view('pages.Users.edit' , $payload);
     }
 
-    public function update(Request $request , $id)
+    public function update(UserUpdateValidationRequest $request , $id)
     {
         $payload = [
             'name' => $request->name,
