@@ -69,9 +69,10 @@ class ResourceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Resource $resource)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $this->resourceService->updateResource($request , $id);
+        return redirect(route('resources.index'));
     }
 
     /**

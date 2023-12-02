@@ -35,7 +35,7 @@
                         <select class="form-select " aria-label="Default select example" name="course">
                             <option disabled>Select A Course</option>
                             @foreach($courses as $course)
-                                <option @if($resource->tag == $course->id) selected @endif value="{{$course->id}}">{{$course->name}}</option>
+                                <option @if($resource->tag == $course->name) selected @endif value="{{$course->id}}">{{$course->name}}</option>
                             @endforeach
                         </select>
                         <label class="form-label pt-3" for="customFile">Default file input example</label>
