@@ -33,17 +33,34 @@ class ResourcesService {
     public function createResource(Request $request)
     {
         $file = $request->file('file');
-        $extension = $file->getClientOriginalExtension();
-
-        $filename = pathinfo($extension , PATHINFO_FILENAME);
-        $storageName = $filename . '_' . time() . '.'.$extension;
-        $path = $file->storeAs('files' , $storageName , 'public');
+        $storageName = $this->storeFile($file);
 
         $data['name'] = $request->name;
         $data['tag'] = $this->courseRepository->getCourseById($request->course)->name;
         $data['path'] = $storageName;
 
         return $this->resourceRepository->createResource($data);
+    }
+
+    public function storeFile($file)
+    {
+
+        $extension = $file->getClientOriginalExtension();
+        $filename = pathinfo($extension , PATHINFO_FILENAME);
+        $storageName = $filename . '_' . time() . '.'.$extension;
+        $path = $file->storeAs('files' , $storageName , 'public');
+
+        return $storageName;
+    }
+    public function updateResource($request, $id)
+    {
+        $file = $request->file('file');
+        $payload['name'] = $request->name;
+        $payload['tag'] = $this->courseRepository->getCourseById($request->course)->name;
+        $payload['path'] = $this->storeFile($file);
+
+        $already_exist = $this->findResourceById($id);
+        return $this->resourceRepository->updateResource($already_exist , $payload);
     }
 
     public function destroy($id)

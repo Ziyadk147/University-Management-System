@@ -40,6 +40,11 @@ class ResourcesRepository implements ResourcesInterface {
         return $this->resource->create($data);
     }
 
+    public function updateResource($already_exists , $payload)
+    {
+        return $already_exists->update($payload);
+    }
+
     public function delete($id)
     {
         $resource  =  $this->findResourceById($id);
