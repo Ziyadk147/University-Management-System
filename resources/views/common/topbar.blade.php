@@ -160,12 +160,12 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{\App\Models\User::find(\Illuminate\Support\Facades\Auth::id())->name}}</span>
                 <img class="img-profile rounded-circle"
-                     src="img/undraw_profile.svg">
+                     src="{{asset('storage/images/'.\App\Models\User::find(\Illuminate\Support\Facades\Auth::id())->image)}}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{route('user.show' , \Illuminate\Support\Facades\Auth::id())}}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>

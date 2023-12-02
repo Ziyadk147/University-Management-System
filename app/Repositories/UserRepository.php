@@ -26,15 +26,8 @@ class UserRepository implements UserInterface{
 
     public function store($data)
     {
-        $payload = [
-            'name' => $data->name,
-            'password' => Hash::make($data->password),
-            'email' => $data->email,
-            'role' =>$data->role
-        ];
-
-        $user = $this->user->create($payload);
-        $user->assignRole($payload['role']);
+        $user = $this->user->create($data);
+        $user->assignRole($data['role']);
 
         return $user;
     }
@@ -45,7 +38,7 @@ class UserRepository implements UserInterface{
 
     public function update($data , $id)
     {
-        $user = $this->user->find($id);
+        $user = $this->getUserById($id);
 
         return $user->update($data);
 
@@ -62,7 +55,7 @@ class UserRepository implements UserInterface{
     }
     public function delete($id)
     {
-        $user = $this->user->find($id);
+        $user = $this->getUserById($id);
         $user->update(['deleted_by' => Auth::id()]);
         $user->delete();
     }

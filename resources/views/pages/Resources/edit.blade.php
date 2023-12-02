@@ -38,7 +38,7 @@
                                 <option @if($resource->tag == $course->name) selected @endif value="{{$course->id}}">{{$course->name}}</option>
                             @endforeach
                         </select>
-                        <label class="form-label pt-3" for="customFile">Default file input example</label>
+                        <label class="form-label pt-3" for="customFile">Upload Resource</label>
                         <input type="file" class="form-control" id="customFile" name="file"  accept=".pdf, .pptx"/>
                         <button type="submit" class="btn btn-primary mt-5">Submit</button>
                     </form>

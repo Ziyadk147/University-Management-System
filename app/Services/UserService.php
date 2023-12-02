@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 class UserService{
     private $userRepository;
@@ -25,14 +26,32 @@ class UserService{
 
     public function store($data)
     {
+        $payload = [
+            'name' => $data->name,
+            'password' => Hash::make($data->password),
+            'email' => $data->email,
+            'role' =>$data->role,
+             ];
 
-        return $this->userRepository->store($data);
+
+        return $this->userRepository->store($payload);
     }
 
     public function update($data , $id)
     {
+        $file = $data->file('image');
 
-        return $this->userRepository->update($data , $id);
+        $path = $this->storeImage($file);
+
+        $payload = [
+            'name' => $data->name,
+            'password' => Hash::make($data->password),
+            'email' => $data->email,
+            'role' =>$data->role,
+            'image' => $path ?? null
+        ];
+//        dd($payload);
+        return $this->userRepository->update($payload , $id);
     }
 
     public function getUserById($id)
@@ -43,6 +62,16 @@ class UserService{
     public function getUserRoles($id)
     {
         return $this->userRepository->getUserRoles($id);
+    }
+
+    public function storeImage($file)
+    {
+        $extension = $file->getClientOriginalExtension();
+        $filename = pathinfo($extension , PATHINFO_FILENAME);
+        $storageName = $filename . '_' . time() . '.' . $extension;
+        $path = $file->storeAs('images' ,$storageName,'public');
+
+        return $storageName;
     }
 
     public function destroy($id)
