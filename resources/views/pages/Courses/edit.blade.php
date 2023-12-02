@@ -12,6 +12,18 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger auto-close alert-dismissible fade show" role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     <form action="{{route('courses.update' , $course->id)}}" method="POST">
                         @csrf
                         @method('PUT')

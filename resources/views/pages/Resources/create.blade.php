@@ -12,6 +12,18 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger auto-close alert-dismissible fade show" role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     <form action="{{route('resource.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
@@ -20,7 +32,7 @@
                         </div>
                         <label for="form-label">Course</label>
                         <select class="form-select " aria-label="Default select example" name="course">
-                            <option selected>Select A Course</option>
+                            <option disabled>Select A Course</option>
                             @foreach($courses as $course)
                                 <option value="{{$course->id}}">{{$course->name}}</option>
                             @endforeach
