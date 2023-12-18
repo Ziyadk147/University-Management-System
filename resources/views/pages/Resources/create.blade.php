@@ -37,8 +37,8 @@
                                 <option value="{{$course->id}}">{{$course->name}}</option>
                             @endforeach
                         </select>
-                        <label class="form-label pt-3" for="customFile">Default file input example</label>
-                        <input type="file" class="form-control" id="customFile" name="file"  accept=".pdf, .pptx"/>
+                        <label class="form-label pt-3" for="customFile">Enter a resource</label>
+                        <input type="file" class="form-control" id="customFile" name="path"/>
 
                         <button type="submit" class="btn btn-primary mt-5">Submit</button>
                     </form>

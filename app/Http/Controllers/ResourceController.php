@@ -72,7 +72,7 @@ class ResourceController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->resourceService->updateResource($request , $id);
-        return redirect(route('resources.index'));
+        return redirect(route('resource.index'));
     }
 
     /**

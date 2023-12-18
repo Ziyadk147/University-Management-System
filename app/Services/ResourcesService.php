@@ -32,7 +32,7 @@ class ResourcesService {
 
     public function createResource(Request $request)
     {
-        $file = $request->file('file');
+        $file = $request->file('path');
         $storageName = $this->storeFile($file);
 
         $data['name'] = $request->name;

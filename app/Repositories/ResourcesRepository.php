@@ -36,6 +36,7 @@ class ResourcesRepository implements ResourcesInterface {
     }
 
     public function createResource($data)
+        
     {
         return $this->resource->create($data);
     }
