@@ -22,9 +22,6 @@ class UserUpdateValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|unique:users,email',
-            'name' => 'required',
-            'role' => 'required',
             'image' => 'mimes:jpg,jpeg,png|max:10000'
             ];
     }

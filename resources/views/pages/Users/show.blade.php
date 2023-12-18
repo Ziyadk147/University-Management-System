@@ -7,14 +7,14 @@
                 <div class="card-header py-3">
                     <div class="row">
                         <div class="col">
-                            <h2 class="m-0 font-weight-bold text-primary">Edit User</h2>
+                            <h2 class="m-0 font-weight-bold text-primary">User Profile</h2>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <div  class="mx-auto" style="overflow:hidden; height:120px; width:120px; border-radius:50%;">
-                        <img class="img-fluid" src="{{asset('storage/images/'.$user->image)}}" alt='Agent picture' />
+                    <div  class="mx-auto text-center">
+                        <img class="img-fluid w-25 " src="{{asset('storage/images/'.$user->image->image)}}" alt='Agent picture' />
                     </div>
                     <form action="{{route('user.update' , $user->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf

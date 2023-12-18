@@ -31,7 +31,8 @@ class UserService{
             'password' => Hash::make($data->password),
             'email' => $data->email,
             'role' =>$data->role,
-             ];
+        ];
+
 
 
         return $this->userRepository->store($payload);
@@ -48,10 +49,13 @@ class UserService{
             'password' => Hash::make($data->password),
             'email' => $data->email,
             'role' =>$data->role,
-            'image' => $path ?? null
         ];
-//        dd($payload);
-        return $this->userRepository->update($payload , $id);
+        $img_payload = [
+            'user_id' => $id,
+            'image' => $path,
+        ];
+
+        return $this->userRepository->update($payload ,$img_payload, $id);
     }
 
     public function getUserById($id)

@@ -63,6 +63,12 @@ class UserController extends Controller
         return redirect(route('user.index'));
     }
 
+    public function ProfileUpdate(UserUpdateValidationRequest $request,$id)
+    {
+        $data = $this->userService->update($request , $id);
+        return redirect(route('home'));
+    }
+
     public function destroy($id)
     {
         $this->userService->destroy($id);

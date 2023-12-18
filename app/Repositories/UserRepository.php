@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
+use App\Models\Image;
 use App\Models\User;
 use App\Services\RoleService;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,10 @@ class UserRepository implements UserInterface{
     {
         $user = $this->user->create($data);
         $user->assignRole($data['role']);
-
+        Image::create([
+            'user_id' => $user->id,
+            'image' => 'undraw_profile_1.svg',
+        ]);
         return $user;
     }
     public function edit()
@@ -36,10 +40,13 @@ class UserRepository implements UserInterface{
         // TODO: Implement edit() method.
     }
 
-    public function update($data , $id)
+    public function update($data , $img_payload , $id)
     {
         $user = $this->getUserById($id);
+        $user->image()->update($img_payload);
+        if($img_payload['image']){
 
+        }
         return $user->update($data);
 
     }
