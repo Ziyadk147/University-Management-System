@@ -23,7 +23,7 @@ class ResourceCreateValidationRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:resources,name,NULL,id,deleted_at,NULL',
-            'path' => 'required|string',
+            'path' => 'required',
             'course' => 'required|string',
         ];
     }
