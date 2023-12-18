@@ -11,7 +11,7 @@ class UserUpdateValidationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,8 @@ class UserUpdateValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|unique:users,email',
-            'name' => 'required',
-            'role' => 'required',
-        ];
+            'image' => 'mimes:jpg,jpeg,png|max:10000'
+            ];
     }
 
     public function messages()
