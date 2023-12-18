@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
-use App\Models\Image;
 use App\Models\User;
 use App\Services\RoleService;
 use Illuminate\Support\Facades\Auth;
@@ -27,12 +26,16 @@ class UserRepository implements UserInterface{
 
     public function store($data)
     {
-        $user = $this->user->create($data);
-        $user->assignRole($data['role']);
-        Image::create([
-            'user_id' => $user->id,
-            'image' => 'undraw_profile_1.svg',
-        ]);
+        $payload = [
+            'name' => $data->name,
+            'password' => Hash::make($data->password),
+            'email' => $data->email,
+            'role' =>$data->role
+        ];
+
+        $user = $this->user->create($payload);
+        $user->assignRole($payload['role']);
+
         return $user;
     }
     public function edit()
@@ -40,13 +43,10 @@ class UserRepository implements UserInterface{
         // TODO: Implement edit() method.
     }
 
-    public function update($data , $img_payload , $id)
+    public function update($data , $id)
     {
-        $user = $this->getUserById($id);
-        $user->image()->update($img_payload);
-        if($img_payload['image']){
+        $user = $this->user->find($id);
 
-        }
         return $user->update($data);
 
     }
@@ -62,7 +62,7 @@ class UserRepository implements UserInterface{
     }
     public function delete($id)
     {
-        $user = $this->getUserById($id);
+        $user = $this->user->find($id);
         $user->update(['deleted_by' => Auth::id()]);
         $user->delete();
     }
