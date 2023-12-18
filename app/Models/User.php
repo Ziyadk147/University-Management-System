@@ -24,7 +24,6 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
-        'image'
     ];
 
     /**
@@ -46,10 +45,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-
-    public function Image()
-    {
-        return $this->hasOne(Image::class);
-    }
 }

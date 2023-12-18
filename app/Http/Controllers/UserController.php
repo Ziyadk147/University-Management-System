@@ -38,16 +38,6 @@ class UserController extends Controller
         return redirect(route('user.index'));
     }
 
-    public function show($id)
-    {
-        $user = $this->userService->getUserById($id);
-        $roles = $this->userService->getAllRoles();
-        $payload['user'] = $user;
-        $payload['roles'] = $roles;
-
-        return view('pages.Users.show' ,$payload);
-    }
-
     public function edit($id)
     {
         $user = $this->userService->getUserById($id);
@@ -59,14 +49,13 @@ class UserController extends Controller
 
     public function update(UserUpdateValidationRequest $request , $id)
     {
-        $data = $this->userService->update($request , $id);
+        $payload = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+        ];
+        $data = $this->userService->update($payload , $id);
         return redirect(route('user.index'));
-    }
-
-    public function ProfileUpdate(UserUpdateValidationRequest $request,$id)
-    {
-        $data = $this->userService->update($request , $id);
-        return redirect(route('home'));
     }
 
     public function destroy($id)
