@@ -13,6 +13,8 @@ interface UserInterface{
     public function getUserRoles($id);
 
     public function store($data);
+
+    public function getUserImage($id);
     public function edit();
     public function update($data , $id);
 

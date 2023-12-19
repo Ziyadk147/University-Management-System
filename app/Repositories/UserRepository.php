@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
+use App\Models\Image;
 use App\Models\User;
 use App\Services\RoleService;
 use Illuminate\Support\Facades\Auth;
@@ -11,11 +12,12 @@ use Spatie\Permission\Models\Role;
 
 class UserRepository implements UserInterface{
 
-    protected $user , $role;
-    public function __construct(User $user , Role $role)
+    protected $user , $role ,$image;
+    public function __construct(User $user , Role $role , Image $image)
     {
         $this->user = $user;
         $this->role = $role;
+        $this->image = $image;
     }
 
     public function getAllUsers()
@@ -59,6 +61,11 @@ class UserRepository implements UserInterface{
     {
         return $this->user->find($id)->roles()->pluck('id')->first();
 
+    }
+
+    public function getUserImage($id)
+    {
+        return $this->image->where('user_id' , $id)->value('images');
     }
     public function delete($id)
     {

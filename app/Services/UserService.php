@@ -40,6 +40,11 @@ class UserService{
         return $this->userRepository->getUserById($id);
     }
 
+    public function getUserImage($id)
+    {
+        return $this->userRepository->getUserImage($id);
+    }
+
     public function getUserRoles($id)
     {
         return $this->userRepository->getUserRoles($id);
