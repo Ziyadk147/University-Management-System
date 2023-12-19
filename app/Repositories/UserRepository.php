@@ -53,6 +53,18 @@ class UserRepository implements UserInterface{
 
     }
 
+    public function storeImage($payload)
+    {
+        $already_exists_image_name = $this->getUserImage($payload['user_id']);
+        if($already_exists_image_name){
+           $already_exists = $this->image->where('images' ,$already_exists_image_name);
+           $already_exists->update($payload);
+        }
+        else{
+            return $this->storeImage($payload);
+        }
+    }
+
     public function getUserById($id)
     {
         return $this->user->find($id);

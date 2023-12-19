@@ -22,8 +22,6 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userService->getAllUsers();
-
-
         return view('pages.Users.index' , compact('users'));
     }
 
@@ -44,15 +42,6 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserById($id);
         $roles = $this->userService->getAllRoles();
-        $payload['user'] = $user;
-        $payload['roles'] = $roles;
-        return view('pages.Users.edit' , $payload);
-    }
-
-    public function show($id)
-    {
-        $user = $this->userService->getUserById($id);
-        $roles = $this->userService->getAllRoles();
         $image = $this->userService->getUserImage($id);
 
         $payload= [
@@ -65,23 +54,20 @@ class UserController extends Controller
 
     public function update(Request $request , $id)
     {
-//        dd($request);
-        $path = $request->file('image')->store('images' , 'public');
-        $image = basename($path);
+        if($request->file('image')){
 
+            $image = $this->userService->storeImage($request->file('image') , $id);
+
+        }
         $payload = [
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
         ];
-        $image_payload = [
-            'user_id' => Auth::id(),
-            'images' => $image
-        ];
-        Image::create($image_payload);
+
         $data = $this->userService->update($payload , $id);
 
-        return redirect(route('user.index'));
+            return redirect(route('user.index'));
     }
 
 
