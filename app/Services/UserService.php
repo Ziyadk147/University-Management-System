@@ -25,13 +25,19 @@ class UserService{
 
     public function store($data)
     {
-
         return $this->userRepository->store($data);
     }
 
+    public function storeImage($image)
+    {
+        $image = $image->store('images' , 'public');
+        $imagePath = basename($image);
+
+        return $imagePath;
+    }
     public function update($data , $id)
     {
-
+        $data['user_id'] = $id;
         return $this->userRepository->update($data , $id);
     }
 

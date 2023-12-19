@@ -10,6 +10,7 @@ use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -22,8 +23,6 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userService->getAllUsers();
-
-
         return view('pages.Users.index' , compact('users'));
     }
 
@@ -33,23 +32,26 @@ class UserController extends Controller
         return view('pages.Users.create' , compact('roles'));
     }
 
-    public function store(UserStorevalidationRequest $request)
+    public function store(Request $request)
     {
+        if($request->file('image')){
 
-        $this->userService->store($request);
+            $image = $this->userService->storeImage($request->file('image'));
+
+        }
+        $payload = [
+            'name' => $request->name,
+            'password' => Hash::make($request->password),
+            'email' => $request->email,
+            'role' =>  $request->role,
+            'image' => $image ?? null
+        ];
+
+        $this->userService->store($payload);
         return redirect(route('user.index'));
     }
 
     public function edit($id)
-    {
-        $user = $this->userService->getUserById($id);
-        $roles = $this->userService->getAllRoles();
-        $payload['user'] = $user;
-        $payload['roles'] = $roles;
-        return view('pages.Users.edit' , $payload);
-    }
-
-    public function show($id)
     {
         $user = $this->userService->getUserById($id);
         $roles = $this->userService->getAllRoles();
@@ -65,20 +67,18 @@ class UserController extends Controller
 
     public function update(Request $request , $id)
     {
-//        dd($request);
-        $path = $request->file('image')->store('images' , 'public');
-        $image = basename($path);
+        if($request->file('image')){
 
+            $image = $this->userService->storeImage($request->file('image'));
+
+        }
         $payload = [
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'image' => $image ?? null,
         ];
-        $image_payload = [
-            'user_id' => Auth::id(),
-            'images' => $image
-        ];
-        Image::create($image_payload);
+
         $data = $this->userService->update($payload , $id);
 
         return redirect(route('user.index'));

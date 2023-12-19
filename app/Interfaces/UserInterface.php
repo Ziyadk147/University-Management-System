@@ -15,6 +15,8 @@ interface UserInterface{
     public function store($data);
 
     public function getUserImage($id);
+
+    public function storeImage($payload);
     public function edit();
     public function update($data , $id);
 

@@ -1,6 +1,20 @@
 @extends('layouts.layout')
 
 @section('content')
+    <style>
+        .rounded-image {
+            width: 200px; /* Adjust the width as needed */
+            height: 200px; /* Adjust the height as needed */
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        .rounded-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
@@ -27,7 +41,10 @@
                     <form action="{{route('user.update' , $user->id)}}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
-                        <img class="rounded-circle shadow-4-strong circle-img w-50" alt="avatar2" src="{{asset('storage/images/'.$image)}}" />
+                        <div class="rounded-image mx-auto">
+                            <img class=" rounded-circle shadow-4-strong " alt="avatar2" src="{{asset('storage/images/'.$image)}}" />
+
+                        </div>
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" class="form-control" value="{{$user->email}}" name="email">
@@ -49,7 +66,7 @@
                         </select>
                         <div class="mb-3 mt-3">
                             <label for="formFileMultiple" class="form-label">Profile Picture</label>
-                            <input class="form-control" type="file" name="image" >
+                            <input class="form-control" type="file" name="image"  >
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">Submit</button>
                     </form>
