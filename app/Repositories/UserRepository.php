@@ -32,11 +32,6 @@ class UserRepository implements UserInterface{
         $user = $this->user->create($data);
         $user->assignRole($data['role']);
 
-        $img_payload = [
-            'user_id' => $user->id,
-            'images' => $data['image']
-        ];
-        $image = $this->storeImage($img_payload);
         return $user;
     }
     public function edit()

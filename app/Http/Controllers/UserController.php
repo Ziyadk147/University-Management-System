@@ -34,17 +34,11 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if($request->file('image')){
-
-            $image = $this->userService->storeImage($request->file('image'));
-
-        }
         $payload = [
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'email' => $request->email,
             'role' =>  $request->role,
-            'image' => $image ?? null
         ];
 
         $this->userService->store($payload);

@@ -45,10 +45,6 @@
                                 <option value="{{$role->id}}">{{$role->name}}</option>
                             @endforeach
                         </select>
-                        <div class="mb-3 mt-3">
-                            <label for="formFileMultiple" class="form-label">Profile Picture</label>
-                            <input class="form-control" type="file" name="image" >
-                        </div>
                         <button type="submit" class="btn btn-primary mt-5">Submit</button>
                     </form>
                 </div>
