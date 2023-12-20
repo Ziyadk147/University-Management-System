@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Image;
 use App\Models\User;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
@@ -17,7 +18,7 @@ class UserServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UserRepository::class , function($app){
-            return new UserRepository(new User() , new Role());
+            return new UserRepository(new User() , new Role(),new Image());
         });
         $this->app->bind(UserService::class , function($app){
             return new UserService($this->app->make(UserRepository::class));
