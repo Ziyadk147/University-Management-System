@@ -81,7 +81,7 @@ class UserController extends Controller
 
         $data = $this->userService->update($payload , $id);
 
-        return redirect(route('user.index'));
+            return redirect(route('user.index'));
     }
 
 
