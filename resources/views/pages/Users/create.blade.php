@@ -28,18 +28,18 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email">
+                            <input type="email" class="form-control" name="email" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">User Name</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form-control" name="password" required>
                         </div>
                         <label for="form-label">Role</label>
-                        <select class="form-select " aria-label="Default select example" name="role">
+                        <select class="form-select " aria-label="Default select example" name="role" required>
                             <option disabled>Select A Role</option>
                             @foreach($roles as $role)
                                 <option value="{{$role->id}}">{{$role->name}}</option>

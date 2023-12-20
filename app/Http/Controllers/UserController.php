@@ -32,7 +32,7 @@ class UserController extends Controller
         return view('pages.Users.create' , compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(UserStorevalidationRequest $request)
     {
         $payload = [
             'name' => $request->name,
