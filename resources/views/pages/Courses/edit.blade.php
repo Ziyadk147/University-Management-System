@@ -27,6 +27,15 @@
                     <form action="{{route('courses.update' , $course->id)}}" method="POST">
                         @csrf
                         @method('PUT')
+                        <div class="mb-5">
+                            <label for="classdropdown">Classes</label>
+                            <select class="form-select" aria-label="Default select example" name="class" id="classdropdown">
+                                <option selected disabled>Select a Class</option>
+                                @foreach($classes as $class)
+                                    <option @if( $course->CLass->id != null && $class->id == $course->Class->id ) selected @endif value="{{$class->id}}">{{$class->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label">Course Name</label>
                             <input type="text" class="form-control" name="name" value="{{$course->name}}">

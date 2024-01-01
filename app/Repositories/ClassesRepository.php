@@ -15,7 +15,7 @@ class ClassesRepository implements ClassesInterface{
         $this->class = $class;
     }
 
-    public function getAllData()
+    public function getAllClasses()
     {
         return $this->class->all();
     }
@@ -43,6 +43,7 @@ class ClassesRepository implements ClassesInterface{
         $class->update([
             'deleted_by' => Auth::id()
         ]);
+        $class->Course()->delete();
         return $class->delete();
     }
 

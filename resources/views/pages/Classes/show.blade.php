@@ -7,12 +7,7 @@
                 <div class="card-header py-3">
                     <div class="row">
                         <div class="col">
-                            <h2 class="m-0 font-weight-bold text-primary">Course</h2>
-                        </div>
-                        <div class="col text-right">
-{{--                            @can('create-courses')--}}
-                                <a href="{{route('courses.create')}}"><button class="btn btn-primary btn-md">Create New Course</button></a>
-{{--                            @endcan--}}
+                            <h2 class="m-0 font-weight-bold text-primary">{{$class->name}}'s Courses</h2>
                         </div>
                     </div>
                 </div>
@@ -24,7 +19,6 @@
                                 <th>ID</th>
                                 <th>courses</th>
                                 <th>Class</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -32,17 +26,7 @@
                                 <tr>
                                     <td>{{$course->id}}</td>
                                     <td>{{$course->name}}</td>
-                                    <td>{{$course->Class->name ?? null}}</td>
-                                    <td>
-                                        @can('edit-courses')
-                                            <a href="{{route('courses.edit',$course->id)}}">
-                                                <button class="btn btn-primary">Edit</button>
-                                            </a>
-                                        @endcan
-                                        @can('delete-courses')
-                                            <button class="btn btn-danger delete-button" data-id="{{$course->id}}">Delete</button>
-                                        @endcan
-                                    </td>
+                                    <td>{{$course->Class->name}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

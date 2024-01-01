@@ -22,7 +22,8 @@ class CourseStoreValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:courses,name,NULL,id,deleted_at,NULL'
+            'name' => 'required|string',
+            'class' => 'required'
         ];
     }
 

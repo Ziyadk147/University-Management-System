@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Courses\CourseStoreValidationRequest;
 use App\Models\Course;
+use App\Services\ClassesService;
 use App\Services\CourseService;
 use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
-    protected $courseService;
+    protected $courseService , $classesService;
 
-    public function __construct(CourseService $courseService)
+    public function __construct(CourseService $courseService , ClassesService $classesService)
     {
         $this->courseService = $courseService;
+        $this->classesService = $classesService;
     }
 
     /**
@@ -22,7 +24,10 @@ class CoursesController extends Controller
     public function index()
     {
         $courses = $this->courseService->getAllCourses();
-        return view('pages.Courses.index' , compact('courses'));
+
+        $payload['courses'] = $courses;
+
+        return view('pages.Courses.index' ,$payload);
     }
 
     /**
@@ -30,7 +35,10 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        return view('pages.Courses.create');
+        $classes = $this->classesService->getAllClasses();
+        $payload['classes'] = $classes;
+
+        return view('pages.Courses.create',$payload);
     }
 
     /**
@@ -39,6 +47,7 @@ class CoursesController extends Controller
     public function store(CourseStoreValidationRequest $request)
     {
         $payload['name'] = $request->name;
+        $payload['class_id'] = $request->class;
         $this->courseService->store($payload);
 
         return redirect(route('courses.index'));
@@ -58,7 +67,12 @@ class CoursesController extends Controller
     public function edit($id)
     {
         $course = $this->courseService->getCourseById($id);
-        return view('pages.Courses.edit' , compact('course'));
+        $classes = $this->classesService->getAllClasses();
+
+        $payload['course'] = $course;
+        $payload['classes'] = $classes;
+
+        return view('pages.Courses.edit' , $payload);
     }
 
     /**
@@ -67,6 +81,7 @@ class CoursesController extends Controller
     public function update(CourseStoreValidationRequest $request , $id)
     {
         $payload['name'] = $request->name;
+        $payload['class_id'] = $request->class;
         $this->courseService->update($payload,$id);
         return redirect(route('courses.index'));
     }

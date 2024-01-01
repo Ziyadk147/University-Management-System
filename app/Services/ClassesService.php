@@ -13,9 +13,9 @@ class ClassesService{
         $this->classRepository = $classRepository;
     }
 
-    public function getAlldata()
+    public function getAllClasses()
     {
-        return $this->classRepository->getAllData();
+        return $this->classRepository->getAllClasses();
     }
 
 

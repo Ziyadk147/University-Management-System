@@ -10,9 +10,9 @@
                             <h2 class="m-0 font-weight-bold text-primary">Classes</h2>
                         </div>
                         <div class="col text-right">
-{{--                            @can('create-classes')--}}
+                            @can('create-classes')
                                 <a href="{{route('classes.create')}}"><button class="btn btn-primary btn-md">Create New Class</button></a>
-{{--                            @endcan--}}
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -34,14 +34,20 @@
                                     <td>{{$class->name}}</td>
                                     <td>{{$class->capacity}}</td>
                                     <td>
-{{--                                        @can('edit-classes')--}}
+                                        @can('view-classes')
+                                            <a href="{{route('classes.show',$class->id)}}">
+                                                <button class="btn btn-primary">View Courses</button>
+                                            </a>
+                                        @endcan
+
+                                        @can('edit-classes')
                                             <a href="{{route('classes.edit',$class->id)}}">
                                                 <button class="btn btn-primary">Edit</button>
                                             </a>
-{{--                                        @endcan--}}
-{{--                                        @can('delete-classes')--}}
+                                        @endcan
+                                        @can('delete-classes')
                                             <button class="btn btn-danger delete-button" data-id="{{$class->id}}">Delete</button>
-{{--                                        @endcan--}}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

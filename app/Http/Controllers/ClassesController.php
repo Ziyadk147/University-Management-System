@@ -20,7 +20,7 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $classes =  $this->classService->getAllData();
+        $classes =  $this->classService->getAllClasses();
         return view('pages.Classes.index',compact('classes'));
     }
 
@@ -50,9 +50,13 @@ class ClassesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Classes $classes)
+    public function show($id)
     {
-        //
+        $class = $this->classService->getClassById($id);
+        $payload['class'] = $class;
+        $payload['courses'] = $class->Course;
+//        dd($payload);
+        return view('pages.Classes.show' , $payload);
     }
 
     /**
@@ -83,6 +87,7 @@ class ClassesController extends Controller
     public function destroy($id)
     {
         $this->classService->destroy($id);
+
     }
 }
 

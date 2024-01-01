@@ -5,7 +5,7 @@ namespace App\Interfaces;
 
 interface ClassesInterface{
 
-    public function getAllData();
+    public function getAllClasses();
 
     public function create();
     public function store($request);

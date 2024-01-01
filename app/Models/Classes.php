@@ -10,5 +10,10 @@ class Classes extends Model
 {
     use HasFactory , SoftDeletes;
     protected $fillable = ['name' , 'capacity' , 'deleted_by'];
+
+    public function Course()
+    {
+        return $this->hasMany(Course::class , 'class_id' , 'id');
+    }
 }
 
