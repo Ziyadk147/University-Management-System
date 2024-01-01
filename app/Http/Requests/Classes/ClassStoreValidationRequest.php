@@ -22,7 +22,7 @@ class ClassStoreValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:classes,name,NULL,id,deleted_at,NULL',
+            'name' => 'required|string',
             'capacity' => 'required|integer'
         ];
     }

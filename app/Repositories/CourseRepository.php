@@ -23,6 +23,7 @@ class CourseRepository implements CourseInterface{
     }
     public function store($data)
     {
+
         return $this->course->create($data);
     }
     public function getCourseById($id)
