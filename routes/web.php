@@ -30,6 +30,16 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/logout' , [\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
+
+
+
+Route::group(['middleware' => ['role:student']] , function(){
+    Route::controller(ResourceController::class)->prefix('/resource')->group(function(){
+        Route::get('/download/{filename}' , 'downloadResource')->name('resource.download');
+
+    });
+});
+
 Route::group(['middleware' => ['role:admin']] , function (){
     Route::controller(PermissionController::class)->prefix('/permission')->group(function(){
         Route::get('/bind' , 'bindPermissionPage')->name('permission.bind');
@@ -40,15 +50,12 @@ Route::group(['middleware' => ['role:admin']] , function (){
         Route::get('/bind','bindUserPage')->name('role.bind');
         Route::post('/bindRoleToUser','bindRoleToUser')->name('role.bindRoleToUser');
     });
-    Route::controller(ResourceController::class)->prefix('/resource')->group(function(){
-        Route::get('/download/{filename}' , 'downloadResource')->name('resource.download');
-    });
-    Route::resource('/courses' ,CoursesController::class);
-    Route::resource('/classes',ClassesController::class);
-    Route::resource('/role',RoleController::class);
-    Route::resource('/permission',PermissionController::class);
-    Route::resource('/user' , UserController::class);
-    Route::resource('/resource',ResourceController::class);
 });
+Route::resource('/courses' ,CoursesController::class);
+Route::resource('/classes',ClassesController::class);
+Route::resource('/role',RoleController::class);
+Route::resource('/permission',PermissionController::class);
+Route::resource('/user' , UserController::class);
+Route::resource('/resource',ResourceController::class);
 
 
