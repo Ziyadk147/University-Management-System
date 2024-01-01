@@ -35,9 +35,9 @@
                             <h2 class="m-0 font-weight-bold text-primary">Resources</h2>
                         </div>
                         <div class="col text-right">
-{{--                            @can('create-resource')--}}
+                            @can('create-resources')
                                 <a href="{{route('resource.create')}}"><button class="btn btn-primary btn-md">Create New Resource</button></a>
-{{--                            @endcan--}}
+                            @endcan
                         </div>
                     </div>
                 </div>
