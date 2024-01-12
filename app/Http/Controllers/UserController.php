@@ -6,6 +6,7 @@ use App\Http\Requests\Courses\StoreValidationRequest;
 use App\Http\Requests\Users\UserStorevalidationRequest;
 use App\Http\Requests\Users\UserUpdateValidationRequest;
 use App\Models\Image;
+use App\Models\Student;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -34,19 +35,20 @@ class UserController extends Controller
 
     public function store(UserStorevalidationRequest $request)
     {
+
         $payload = [
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'email' => $request->email,
             'role' =>  $request->role,
         ];
-
         $this->userService->store($payload);
         return redirect(route('user.index'));
     }
 
     public function edit($id)
     {
+
         $user = $this->userService->getUserById($id);
         $roles = $this->userService->getAllRoles();
         $image = $this->userService->getUserImage($id);

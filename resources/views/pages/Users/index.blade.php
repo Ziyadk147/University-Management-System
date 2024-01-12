@@ -24,6 +24,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Users</th>
+                                <th>Role</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->name}}</td>
+                                    <td>{{\Spatie\Permission\Models\Role::find($item->role)['name']}}</td>
                                     <td>
                                         @can('edit-users')
                                             <a href="{{route('user.edit',$item->id)}}">

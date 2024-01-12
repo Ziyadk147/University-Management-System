@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
 use App\Models\Image;
+use App\Models\Student;
 use App\Models\User;
 use App\Services\RoleService;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class UserRepository implements UserInterface{
         $this->user = $user;
         $this->role = $role;
         $this->image = $image;
+
     }
 
     public function getAllUsers()
@@ -30,7 +32,14 @@ class UserRepository implements UserInterface{
     {
 
         $user = $this->user->create($data);
+
         $user->assignRole($data['role']);
+
+        if ($data["role"] == 7){
+            Student::create([
+                'user_id' => $user->id,
+            ]);
+        }
 
         return $user;
     }
@@ -84,7 +93,11 @@ class UserRepository implements UserInterface{
     {
         $user = $this->user->find($id);
         $user->update(['deleted_by' => Auth::id()]);
+        if($user->role == 7){
+            $user->student->delete();
+        }
         $user->delete();
+
     }
 
     public function getAllRoles()
