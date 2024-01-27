@@ -9,6 +9,11 @@
                         <div class="col">
                             <h2 class="m-0 font-weight-bold text-primary">Resources</h2>
                         </div>
+                        <div class="col text-right">
+                            @can('create-users')
+{{--                                <a href="{{route('user.create')}}"><button class="btn btn-primary btn-md">Add new Resource</button></a>--}}
+                            @endcan
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,19 +35,19 @@
                                     <td>{{$resource->name}}</td>
                                     <td>{{$resource->tag}}</td>
                                     <td>
-                                        @can('download-resource')
+{{--                                        @can('download-resource')--}}
                                             <a href="{{route('resource.download',['filename' => $resource->path])}}" target="_blank">
                                                 <button class="btn btn-primary">Download</button>
                                             </a>
-                                        @endcan
-                                        @can('edit-users')
+{{--                                        @endcan--}}
+{{--                                        @can('edit-users')--}}
                                             <a href="{{route('resource.edit',$resource->id)}}">
                                                 <button class="btn btn-primary">Edit</button>
                                             </a>
-                                        @endcan
-                                        @can('delete-users')
+{{--                                        @endcan--}}
+{{--                                        @can('delete-users')--}}
                                             <button class="btn btn-danger delete-button" data-id="{{$resource->id}}">Delete</button>
-                                        @endcan
+{{--                                        @endcan--}}
                                     </td>
                                 </tr>
                             @endforeach

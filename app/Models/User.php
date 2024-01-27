@@ -50,9 +50,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Image::class);
     }
-
-    public function Student()
-    {
-        return $this->hasOne(Student::class);
-    }
 }
