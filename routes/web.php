@@ -35,7 +35,6 @@ Route::get('/logout' , [\App\Http\Controllers\Auth\LoginController::class,'logou
 
 Route::group(['middleware' => ['role:student']] , function(){
     Route::controller(ResourceController::class)->prefix('/resource')->group(function(){
-
         Route::get('/download/{filename}' , 'downloadResource')->name('resource.download');
 
     });
