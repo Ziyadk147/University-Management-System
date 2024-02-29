@@ -55,7 +55,6 @@ class ClassesController extends Controller
         $class = $this->classService->getClassById($id);
         $payload['class'] = $class;
         $payload['courses'] = $class->Course;
-//        dd($payload);
         return view('pages.Classes.show' , $payload);
     }
 

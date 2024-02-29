@@ -5,21 +5,24 @@ namespace App\Repositories;
 use App\Interfaces\UserInterface;
 use App\Models\Image;
 use App\Models\User;
+use App\Services\ClassesService;
 use App\Services\RoleService;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
+use Spatie\Permission\Models\Role;
 class UserRepository implements UserInterface{
 
-    protected $user , $role ,$image , $roleRepository;
-    public function __construct(User $user , Role $role , Image $image ,RoleRepository $roleRepository)
+    protected $user , $role ,$image , $roleRepository , $classesService;
+    public function __construct(User $user , Role $role , Image $image ,RoleRepository $roleRepository , ClassesService $classesService)
     {
         $this->user = $user;
         $this->role = $role;
         $this->image = $image;
         $this->roleRepository = $roleRepository;
+        $this->classesService = $classesService;
     }
 
     public function getAllUsers()
@@ -30,20 +33,52 @@ class UserRepository implements UserInterface{
 
     public function store($data)
     {
+        try {
+            DB::transaction(function () use ($data){
+                $user = $this->user->create($data);
+                $user->assignRole($data['role']);
 
-            $user = $this->user->create($data);
-            $user->assignRole($data['role']);
-            $role = $this->roleRepository->getRoleById($data['role'])->name;
-            $class = $data['class'];
-            if($role == 'student'){
-                $user->Student()->create([
-                    'class_id' => $class,
-                ]);
-            }
+                // No need to fetch role name; use assigned role directly
+                $role = $user->roles->first()->name; // Assuming roles are loaded using with()
 
-        return $user;
+                $class = $data['class'];
+
+                if ($role === 'student') {
+                    $studentPayload = [
+                        'class' => $class,
+                        'user' => $user
+                    ];
+                    $student = $this->setStudentClass($studentPayload);
+                    if(!$student){
+                        throw new Exception("Class is Full");
+                    }
+                }
+            });
+
+        }
+        catch (Exception $exception){
+            DB::rollBack();
+            return $exception->getMessage();
+        };
 
     }
+
+    public function setStudentClass($payload)
+    {
+        $class = $payload['class'];
+        $user = $payload['user'];
+
+        $remainingSeats = $this->classesService->getClassRemainingSeats($class);
+            if($remainingSeats > 0){
+                if($user->Student()->where('class_id' , $class)->get()){
+                    $student = $user->Student()->update(['class_id' => $class]);
+                }else{
+                    $student = $user->Student()->create(['class_id' => $class]);
+                }
+                return $student;
+            }
+    }
+
     public function edit()
     {
         // TODO: Implement edit() method.
@@ -52,41 +87,51 @@ class UserRepository implements UserInterface{
     public function update($data , $id)
     {
 
-        $user = $this->user->find($id);
-        $role = $this->roleRepository->getRoleById($data['role'])->name;
+        try{
+            DB::transaction(function () use ($data , $id){
+                $user = $this->user->find($id);
+                $role = $this->roleRepository->getRoleById($data['role'])->name;
 
-//        dd($data);
-        if(isset($data['image'])){
-            $img_payload = [
+                if(isset($data['image'])){
+                    $img_payload = [
+                        'user_id' => $id,
+                        'images' => $data['image'],
+                    ];
+                    if(!$this->storeImage($img_payload)){
+                        throw new Exception("Error Storing Image");
+                    };
+                }
 
-                'user_id' => $id,
-                'images' => $data['image'],
+                if($role == 'student'){
 
-            ];
-//            dd($img_payload);
-            $this->storeImage($img_payload);
+                    $class = $data['class_id'];
+
+                    $studentPayload = [
+                        'class' => $class,
+                        'user' => $user
+                    ];
+
+                    $student = $this->setStudentClass($studentPayload);
+
+                    if(!$student){
+                        throw new Exception("Class is Full");
+                    }
+
+                }
+                else if($role == "teacher" || $role == "admin"){
+
+                    if($user->Student()){
+
+                        $user->Student()->delete();
+
+                    }
+                }
+            });
         }
-
-        if($role == 'student'){
-
-            $class = $data['class_id'];
-
-            $user->Student()->update([
-
-                'class_id' => $class,
-
-            ]);
+        catch (Exception $exception){
+            DB::rollBack();
+            return $exception->getMessage();
         }
-    else if($role == "teacher" || $role == "admin"){
-            if($user->Student()){
-                $user->Student()->delete();
-            }
-
-        }
-
-
-        return $user->update($data);
-
     }
 
     public function storeImage($payload)

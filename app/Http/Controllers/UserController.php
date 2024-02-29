@@ -41,18 +41,16 @@ class UserController extends Controller
 
     public function store(UserStorevalidationRequest $request)
     {
-//        dd($request);
         $payload = [
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'email' => $request->email,
             'role' =>  $request->role,
             'class' => $request->class,
-        ]
-        ;
+        ];
 
-        $this->userService->store($payload);
-        return redirect(route('user.index'));
+        $errors = $this->userService->store($payload);
+        return redirect(route('user.index'))->withErrors(['errors' => $errors]);
     }
 
     public function edit($id)
@@ -91,7 +89,7 @@ class UserController extends Controller
 
         $data = $this->userService->update($payload , $id);
 
-            return redirect(route('user.index'));
+            return redirect(route('user.index'))->withErrors($data);
     }
 
 
