@@ -55,7 +55,6 @@ class ClassesController extends Controller
         $class = $this->classService->getClassById($id);
         $payload['class'] = $class;
         $payload['courses'] = $class->Course;
-//        dd($payload);
         return view('pages.Classes.show' , $payload);
     }
 
@@ -81,8 +80,20 @@ class ClassesController extends Controller
         return redirect(route('classes.index'));
     }
 
+    public function viewClassStudents($id)
+    {
+        $students = $this->classService->getClassStudents($id);
+        $class = $this->classService->getClassById($id);
+
+        $payload = [
+            'students' => $students,
+            'class' => $class
+        ];
+        return view('pages.Classes.students' , $payload);
+    }
     /**
      * Remove the specified resource from storage.
+
      */
     public function destroy($id)
     {

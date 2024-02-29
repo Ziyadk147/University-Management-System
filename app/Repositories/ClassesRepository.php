@@ -37,13 +37,19 @@ class ClassesRepository implements ClassesInterface{
         return $class->update($request);
 
     }
+
+    public function getClassStudents($id)
+    {
+        $class = $this->getClassById($id);
+        $students = $class->Student;
+        return $students;
+    }
     public function delete($id)
     {
         $class = $this->class->find($id);
         $class->update([
             'deleted_by' => Auth::id()
         ]);
-        $class->Course()->delete();
         return $class->delete();
     }
 

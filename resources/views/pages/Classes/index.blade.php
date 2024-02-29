@@ -34,6 +34,12 @@
                                     <td>{{$class->name}}</td>
                                     <td>{{$class->capacity}}</td>
                                     <td>
+                                        @can('view-students')
+                                            <a href="{{route('classes.students' , $class->id)}}">
+
+                                                <button class="btn btn-primary">View Students</button>
+                                            </a>
+                                        @endcan
                                         @can('view-classes')
                                             <a href="{{route('classes.show',$class->id)}}">
                                                 <button class="btn btn-primary">View Courses</button>

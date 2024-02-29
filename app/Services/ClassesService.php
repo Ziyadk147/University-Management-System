@@ -37,4 +37,28 @@ class ClassesService{
         return $this->classRepository->delete($id);
     }
 
+    public function getClassCapacity($id)
+    {
+        $class = $this->getClassById($id);
+        return $class->capacity;
+    }
+
+    public function getClassStudentCount($id)
+    {
+        $class = $this->getClassById($id);
+        return count($class->student->toArray());
+    }
+
+    public function getClassRemainingSeats($id)
+    {
+        $capacity = $this->getClassCapacity($id);
+        $studentCount = $this->getClassStudentCount($id);
+
+        return $capacity - $studentCount;
+    }
+
+    public function getClassStudents($id)
+    {
+        return $this->classRepository->getClassStudents($id);
+    }
 }

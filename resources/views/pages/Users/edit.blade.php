@@ -24,16 +24,44 @@
                             <input type="text" class="form-control" name="name" value="{{$user->name}}">
                         </div>
                         <label for="form-label">Role</label>
-                        <select class="form-select " aria-label="Default select example" name="role">
-                            <option disabled>Select A Role</option>
-                            @foreach($roles as $role)
-                                <option value="{{$role->id}}" @if($user->role == $role->id)selected @endif>{{$role->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="mb-3">
+                            <select class="form-select " aria-label="Default select example" name="role">
+                                <option disabled>Select A Role</option>
+                                @foreach($roles as $role)
+                                    <option value="{{$role->id}}" @if($user->role == $role->id)selected @endif>{{$role->name}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="empty-space">
+
+                        </div>
                         <button type="submit" class="btn btn-primary mt-5">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#role").change(function(){
+                $("#empty-space").empty()
+                const roleName = $(this).find("option:selected").text();
+                if(roleName === "student"){
+                    const html = `
+                        <label for="form-label">Classes</label>
+                            <select class="form-select " aria-label="Default select example" id="class" name="class" required>
+                                <option disabled>Select A class</option>
+                                @foreach($classes as $class)
+                                    <option value="{{$class->id}}" @if($user->student->role == $class->id)selected @endif>{{$class->name}}</option>
+
+                                @endforeach
+                    </select>`
+
+                    $("#empty-space").append(html);
+                }
+            });
+        })
+    </script>
 @endsection
