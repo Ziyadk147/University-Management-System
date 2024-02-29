@@ -50,12 +50,14 @@ Route::group(['middleware' => ['role:admin']] , function (){
         Route::get('/bind','bindUserPage')->name('role.bind');
         Route::post('/bindRoleToUser','bindRoleToUser')->name('role.bindRoleToUser');
     });
+    Route::controller(ClassesController::class)->prefix('/classes')->group(function(){
+        Route::get('/view-students/{id}' , 'viewClassStudents')->name('classes.students');
+    });
 });
+
 Route::resource('/courses' ,CoursesController::class);
 Route::resource('/classes',ClassesController::class);
 Route::resource('/role',RoleController::class);
 Route::resource('/permission',PermissionController::class);
 Route::resource('/user' , UserController::class);
 Route::resource('/resource',ResourceController::class);
-
-

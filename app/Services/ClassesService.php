@@ -56,4 +56,9 @@ class ClassesService{
 
         return $capacity - $studentCount;
     }
+
+    public function getClassStudents($id)
+    {
+        return $this->classRepository->getClassStudents($id);
+    }
 }
