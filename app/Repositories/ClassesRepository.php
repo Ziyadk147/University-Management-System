@@ -43,7 +43,6 @@ class ClassesRepository implements ClassesInterface{
         $class->update([
             'deleted_by' => Auth::id()
         ]);
-        $class->Course()->delete();
         return $class->delete();
     }
 

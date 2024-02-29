@@ -7,17 +7,19 @@ use App\Models\Image;
 use App\Models\User;
 use App\Services\RoleService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserRepository implements UserInterface{
 
-    protected $user , $role ,$image;
-    public function __construct(User $user , Role $role , Image $image)
+    protected $user , $role ,$image , $roleRepository;
+    public function __construct(User $user , Role $role , Image $image ,RoleRepository $roleRepository)
     {
         $this->user = $user;
         $this->role = $role;
         $this->image = $image;
+        $this->roleRepository = $roleRepository;
     }
 
     public function getAllUsers()
@@ -29,10 +31,18 @@ class UserRepository implements UserInterface{
     public function store($data)
     {
 
-        $user = $this->user->create($data);
-        $user->assignRole($data['role']);
+            $user = $this->user->create($data);
+            $user->assignRole($data['role']);
+            $role = $this->roleRepository->getRoleById($data['role'])->name;
+            $class = $data['class'];
+            if($role == 'student'){
+                $user->Student()->create([
+                    'class_id' => $class,
+                ]);
+            }
 
         return $user;
+
     }
     public function edit()
     {
@@ -43,13 +53,38 @@ class UserRepository implements UserInterface{
     {
 
         $user = $this->user->find($id);
+        $role = $this->roleRepository->getRoleById($data['role'])->name;
 
-        $img_payload = [
-            'user_id' => $id,
-            'images' => $data['image'],
-        ];
+//        dd($data);
+        if(isset($data['image'])){
+            $img_payload = [
 
-        $this->storeImage($img_payload);
+                'user_id' => $id,
+                'images' => $data['image'],
+
+            ];
+//            dd($img_payload);
+            $this->storeImage($img_payload);
+        }
+
+        if($role == 'student'){
+
+            $class = $data['class_id'];
+
+            $user->Student()->update([
+
+                'class_id' => $class,
+
+            ]);
+        }
+    else if($role == "teacher" || $role == "admin"){
+            if($user->Student()){
+                $user->Student()->delete();
+            }
+
+        }
+
+
         return $user->update($data);
 
     }
@@ -57,12 +92,15 @@ class UserRepository implements UserInterface{
     public function storeImage($payload)
     {
         $already_exists_image_name = $this->getUserImage($payload['user_id']);
-        if($already_exists_image_name){
-           $already_exists = $this->image->where('images' ,$already_exists_image_name);
-           $already_exists->update($payload);
+        if(isset($already_exists_image_name)){
+
+
+            $already_exists = $this->image->where('images' ,$already_exists_image_name)->update($payload);
+
+
         }
         else{
-            return $this->storeImage($payload);
+            Image::create($payload);
         }
     }
 
@@ -85,10 +123,17 @@ class UserRepository implements UserInterface{
         $user = $this->user->find($id);
         $user->update(['deleted_by' => Auth::id()]);
         $user->delete();
+        $role = $this->roleRepository->getRoleById($user->role)->name;
+        if($role == 'student'){
+            $user->Student()->delete();
+
+
+        }
     }
 
     public function getAllRoles()
     {
         return $this->role->all();
     }
+
 }

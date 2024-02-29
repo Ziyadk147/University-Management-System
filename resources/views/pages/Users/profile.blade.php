@@ -57,23 +57,57 @@
                             <label class="form-label">Password</label>
                             <input type="password" class="form-control" name="password">
                         </div>--}}
-                        <label for="form-label">Role</label>
-                        <select class="form-select " aria-label="Default select example" name="role">
-                            <option disabled>Select A Role</option>
-                            @foreach($roles as $role)
-                                <option @if($user->role == $role->id)selected @endif value="{{$role->id}}">{{$role->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="mb-3">
+                            <label for="form-label">Role</label>
+                            <select class="form-select " aria-label="Default select example" name="role" id="role">
+                                <option disabled>Select A Role</option>
+                                @foreach($roles as $role)
+                                    <option value="{{$role->id}}" @if($user->role == $role->id)selected @endif>{{$role->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3" id="empty-space">
+                            @if(isset($user->Student->class_id))
+                                <label for="form-label">Class</label>
+                                <select class="form-select " aria-label="Default select example" id="class" name="class" required>
+                                    <option disabled>Select A class</option>
+                                    @foreach($classes as $class)
+                                        <option value="{{$class->id}}" @if($user->Student->class_id == $class->id)selected @endif>{{$class->name}}</option>
+
+                                    @endforeach
+                                </select>
+                            @endif
+                        </div>
                         <div class="mb-3 mt-3">
                             <label for="formFileMultiple" class="form-label">Profile Picture</label>
                             <input class="form-control" type="file" name="image"  >
                         </div>
+
+
                         <button type="submit" class="btn btn-primary mt-5">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#role").change(function(){
+                $("#empty-space").empty()
+                const roleName = $(this).find("option:selected").text();
+                if(roleName === "student"){
+                    const html = `
+                        <label for="form-label">Class</label>
+                            <select class="form-select " aria-label="Default select example" id="class" name="class" required>
+                                <option disabled>Select A class</option>
+                                @foreach($classes as $class)
+                            <option value="{{$class->id}}">{{$class->name}}</option>
+                                @endforeach
+                    </select>`
 
+                    $("#empty-space").append(html);
+                }
+            });
+        })
+    </script>
 @endsection

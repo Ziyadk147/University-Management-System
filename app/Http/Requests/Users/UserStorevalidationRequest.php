@@ -26,7 +26,8 @@ class UserStorevalidationRequest extends FormRequest
             'name' => 'required',
             'role' => 'required',
             'password' => 'required',
-            'image' => ''
+            'image' => '',
+            'class' => ''
         ];
     }
 
